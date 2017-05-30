@@ -1,14 +1,14 @@
 import {createRouter} from "@expo/ex-navigation";
-import Scan from "../screens/Scan";
-import LinksScreen from "../screens/LinksScreen";
+import ScanScreen from "../screens/ScanScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import RootNavigation from "./RootNavigation";
 import CartScreen from "../screens/CartScreen";
+import Login from "../screens/Login"
 
 export default createRouter(() => ({
-  home: () => Scan,
-  links: () => LinksScreen,
+  home: () => ScanScreen,
   settings: () => SettingsScreen,
   rootNavigation: () => RootNavigation,
-  cart: () => CartScreen
+  cart: () => CartScreen,
+  login: () => Login
 }));

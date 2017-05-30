@@ -12,10 +12,15 @@
   },
   "dependencies": {
     "@expo/ex-navigation": "~3.0.0",
+    "@expo/react-native-fade-in-image": "^1.1.1",
+    "@expo/react-native-touchable-native-feedback-safe": "1.1.1",
     "@expo/samples": "~1.0.3",
+    "@expo/vector-icons": "~5.0.0",
     "expo": "17.0.0",
     "react": "16.0.0-alpha.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
+    "react-native-root-modal": "^1.1.1",
+    "react-redux": "^5.0.5"
   },
   "devDependencies": {
     "jest-expo": "~1.0.1"

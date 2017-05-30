@@ -2,7 +2,7 @@
  * Created by Surface Book on 30.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, Image } from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, StatusBar } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class Scan extends React.Component {
@@ -48,6 +48,7 @@ export default class Scan extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content"/>
                 <View style={styles.welcomeContainer}>
                     <Image
                         source={require('../assets/images/expo-wordmark.png')}
@@ -67,6 +68,7 @@ export default class Scan extends React.Component {
                         />
                 }
                 <Text style={styles.sum}>
+                    99 €
                 </Text>
 
             </View>
@@ -99,5 +101,12 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginTop: 3,
         marginLeft: -10,
+    },
+    sum: {
+        margin: 40,
+        fontSize: 36,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#34495e',
     }
 });
