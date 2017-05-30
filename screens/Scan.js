@@ -12,7 +12,9 @@ export default class Scan extends React.Component {
         },
     };
     state = {
-        hasCameraPermission: null
+        hasCameraPermission: null,
+        // QR Code wird nur gescannt, wenn canScan = true
+        canScan: true
     };
 
     componentDidMount() {
@@ -27,11 +29,21 @@ export default class Scan extends React.Component {
     };
 
     _handleBarCodeRead = data => {
-        Alert.alert(
-            'Danke für die Spende!',
-            JSON.stringify(data)
-        );
+        if (this.state.canScan) {
+            this.setState({canScan: false});
+            Alert.alert(
+                'Danke für die Spende!',
+                JSON.stringify(data),
+                [
+                    {text: "Hinzufügen", onPress: () => this._hinzufuegen(data)}
+                ]
+            );
+        }
     };
+
+    _hinzufuegen(data) {
+        this.setState({canScan: true});
+    }
 
     render() {
         return (
