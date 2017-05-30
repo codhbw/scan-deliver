@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, ListView, Text, View } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
 export default class LinksScreen extends React.Component {
@@ -8,6 +8,9 @@ export default class LinksScreen extends React.Component {
       title: 'Links',
     },
   };
+  state = {
+    dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+  };
 
   render() {
     return (
@@ -15,9 +18,10 @@ export default class LinksScreen extends React.Component {
         style={styles.container}
         contentContainerStyle={this.props.route.getContentContainerStyle()}>
 
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
+        <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => <View style={styles.row}><Text>{rowData}</Text></View>}
+        />
 
       </ScrollView>
     );
@@ -29,4 +33,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
   },
+  row: {
+    alignItems: 'center'
+  }
 });
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
