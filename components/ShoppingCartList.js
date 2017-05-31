@@ -9,16 +9,16 @@ import Router from '../navigation/Router'
 
 
 const rows = [
-    {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 1, type: 'kleidung', name: 'Jeans', size: 'Größe m', preis: '34,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 2, type: 'kleidung', name: 'Stoffhose', size: 'Größe m', preis: '89,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 3, type: 'kleidung', name: 'Bluse', size: 'Größe m', preis: '59,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 4, type: 'kleidung', name: 'Shirt', size: 'Größe m', preis: '34,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 5, type: 'kleidung', name: 'Kurze Hose', size: 'Größe m', preis: '89,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
-    {id: 6, type: 'spende', name: 'Brot für die Welt', preis: '20 €', imgResource: require('../assets/images/brotfuerdiewelt.png')},
-    {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', imgResource: require('../assets/images/aerzteohnegrenzen.png')},
-    {id: 8, type: 'moebel', name: 'Lederstuhl', preis: '180 €', imgResource: require('../assets/images/stuhl.jpg')},
-    {id: 9, type: 'kissen', name: 'Gelbes Kissen', preis: '15 €', imgResource: require('../assets/images/kissen.jpg')},
+    {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 1, type: 'kleidung', name: 'Jeans', size: 'Größe m', preis: '34,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 2, type: 'kleidung', name: 'Stoffhose', size: 'Größe m', preis: '89,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 3, type: 'kleidung', name: 'Bluse', size: 'Größe m', preis: '59,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 4, type: 'kleidung', name: 'Shirt', size: 'Größe m', preis: '34,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 5, type: 'kleidung', name: 'Kurze Hose', size: 'Größe m', preis: '89,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 6, type: 'spende', name: 'Brot für die Welt', preis: '20 €', bildUrl:'http://52.178.177.170/images/brotfuerdiewelt.png'},
+    {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', bildUrl:'http://52.178.177.170/images/aerzteohnegrenzen.png'},
+    {id: 8, type: 'moebel', name: 'Lederstuhl', preis: '180 €', bildUrl:'http://52.178.177.170/images/stuhl.jpg'},
+    {id: 9, type: 'kissen', name: 'Gelbes Kissen', preis: '15 €', bildUrl:'http://52.178.177.170/images/kissen.jpg'},
 ];
 /*
 async function saveItems(allitems){
@@ -135,7 +135,7 @@ export default class App extends Component {
             )
         }
         else {
-            <DefaultItem name={item.name} preis={item.preis} imgResource={item.imgResource}/>
+            <DefaultItem name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
         }
     }
 

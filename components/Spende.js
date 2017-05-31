@@ -29,7 +29,7 @@ export default class Spende extends React.Component {
                     <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                         <Image
                             resizeMode="contain"
-                            source={this.props.imgResource}
+                            source={this.props.bildUrl}
                             style={styles.logo}
                         />
                     </FadeIn>
