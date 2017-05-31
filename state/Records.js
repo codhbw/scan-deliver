@@ -5,7 +5,7 @@
 export const ShoppingCartItem = Record({
     id: '',
     preis: 0,
-    bildUrl: '',
+    imgResource: '',
     name: '',
     beschreibung: '',
     groesse: ''
