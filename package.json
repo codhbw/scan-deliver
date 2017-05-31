@@ -24,6 +24,7 @@
     "react-native-prompt": "^1.0.0",
     "react-native-checkbox": "^1.1.0",
     "react-native-root-modal": "^1.1.1",
+    "react-native-swipeout": "^2.1.1",
     "react-native-touch-id": "^3.0.0",
     "react-redux": "^5.0.5"
   },

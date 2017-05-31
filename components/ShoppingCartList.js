@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { FlatList, Text, StyleSheet, AsyncStorage, View, TouchableOpacity, Platform } from 'react-native'
 import Kleidung from './Kleidung'
 import Spende from './Spende'
-import DefaultItem from "./DefaultItem";
+import DefaultItem from "./DefaultItem"
+import Swipeout from 'react-native-swipeout';
 import { withNavigation } from '@expo/ex-navigation';
 import Router from '../navigation/Router'
 
@@ -54,17 +55,83 @@ export default class App extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            items: this.props.rows
+        };
+        console.log("PROPS____");
+        console.log(props);
+        console.log("STATE_____");
+        console.log(this.state);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({items: nextProps.rows});
+    }
+
+    blah(index) {
+        return [{
+            text: 'Löschen',
+            backgroundColor: '#cc0000',
+            onPress: () => {
+                console.log("LÖSCHE INDEX = " + index);
+                this._removeAtKey(index);
+            }
+        }]
+    }
+
+    _removeAtKey(key) {
+        console.log("REMOVE AT KEY:");
+        console.log(key);
+        var deleteIndex = null;
+        let items = this.state.items;
+        console.log("ITEMS:::");
+        console.log(items);
+        for (let i = 0; i < items.length; i++) {
+            let itemAtIndex = items[i];
+            console.log("Ist " + key + " = " + itemAtIndex.key + "?");
+            if (itemAtIndex.key == key) {
+                deleteIndex = i;
+            }
+        }
+
+        console.log("deleteIndex:");
+        console.log(deleteIndex);
+
+        if (deleteIndex !== null) {
+            items.splice(deleteIndex, 1);
+        }
+
+        this._save(items);
+        this.setState({items: items});
+    }
+
+    _save = async (items) => {
+        try {
+            console.log("ShoppingCartList - Save");
+            if (items == null) {
+                console.log("ShoppingCartList - Items = Null");
+                items = [];
+            }
+            console.log("ShoppingCartList: Saving object into 'items': " + JSON.stringify(items));
+            await AsyncStorage.setItem("items", JSON.stringify(items));
+        } catch (error) {
+            console.log("ShoppingCartList Error: " + error);
+        }
     }
 
     renderItem = ({item}) => {
         if(item.type === 'kleidung'){
             return(
-                <Kleidung name={item.name} size={item.size} preis={item.preis} imgResource={item.imgResource}/>
+                <Swipeout right={this.blah(item.key)}>
+                    <Kleidung name={item.name} size={item.size} preis={item.preis} bildUrl={item.imgResource}/>
+                </Swipeout>
             )
         }
         else if(item.type === 'spende'){
             return(
-                <Spende name={item.name} preis={item.preis} imgResource={item.imgResource}/>
+                <Swipeout right={this.blah(item.key)}>
+                    <Spende name={item.name} preis={item.preis} bildUrl={item.imgResource}/>
+                </Swipeout>
             )
         }
         else {
@@ -77,9 +144,17 @@ export default class App extends Component {
     };
 
     render() {
-        console.log("ShoppingCartList Props");
-        console.log(this.props);
-        if (this.props.rows === null || this.props.rows.length === 0)
+        console.log("ShoppingCartList State");
+        console.log(this.state);
+        return (
+            <FlatList
+                style={styles.container}
+                data={this.state.items}
+                renderItem={this.renderItem}
+                keyExtractor={extractKey}
+            />
+        );
+        if (this.state.items === null || this.state.items.length === 0)
         {
             return (
                 <View style={styles.leereListeContainer}><Text style={styles.leereListe}>Sie haben noch keine Artikel in Ihrem Warenkorb.</Text></View>
@@ -89,7 +164,7 @@ export default class App extends Component {
             return (
                 <View style={styles.container}>
                     <FlatList
-                        data={this.props.rows}
+                        data={this.state.rows}
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
