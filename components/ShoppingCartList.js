@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { FlatList, Text, StyleSheet, AsyncStorage } from 'react-native'
+import { FlatList, Text, StyleSheet, AsyncStorage, View, TouchableOpacity, Platform } from 'react-native'
 import Kleidung from './Kleidung'
 import Spende from './Spende'
 import DefaultItem from "./DefaultItem";
+import { withNavigation } from '@expo/ex-navigation';
+import Router from '../navigation/Router'
+
 
 const rows = [
     {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', imgResource: {uri:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'}},
@@ -15,7 +18,7 @@ const rows = [
     {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', imgResource: require('../assets/images/aerzteohnegrenzen.png')},
     {id: 8, type: 'moebel', name: 'Lederstuhl', preis: '180 €', imgResource: require('../assets/images/stuhl.jpg')},
     {id: 9, type: 'kissen', name: 'Gelbes Kissen', preis: '15 €', imgResource: require('../assets/images/kissen.jpg')},
-]
+];
 /*
 async function saveItems(allitems){
     await AsyncStorage.setItem('@store:items', JSON.stringify(allitems));
@@ -44,8 +47,9 @@ try {
 }
 */
 
-const extractKey = ({id}) => id
+const extractKey = ({key}) => key
 
+@withNavigation
 export default class App extends Component {
 
     constructor(props) {
@@ -68,17 +72,34 @@ export default class App extends Component {
         }
     }
 
+    _kaufen = () => {
+        this.props.navigator.push(Router.getRoute('login'));
+    };
+
     render() {
         console.log("ShoppingCartList Props");
         console.log(this.props);
-        return (
-            <FlatList
-                style={styles.container}
-                data={rows}
-                renderItem={this.renderItem}
-                keyExtractor={extractKey}
-            />
-        );
+        if (this.props.rows === null || this.props.rows.length === 0)
+        {
+            return (
+                <View style={styles.leereListeContainer}><Text style={styles.leereListe}>Sie haben noch keine Artikel in Ihrem Warenkorb.</Text></View>
+            );
+        }
+        else {
+            return (
+                <View style={styles.container}>
+                    <FlatList
+                        data={this.props.rows}
+                        renderItem={this.renderItem}
+                        keyExtractor={extractKey} />
+                    <TouchableOpacity style={styles.kaufenButton}
+                        onPress={this._kaufen}>
+                        <Text style={styles.kaufenText}>Kaufen</Text>
+                        <Text style={styles.summe}>382,98 €</Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
     }
 }
 
@@ -93,5 +114,47 @@ const styles = StyleSheet.create({
         backgroundColor: '#3498db',
         color: 'white',
         fontWeight: 'bold',
+    },
+    leereListeContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        flex: 1,
+    },
+    leereListe: {
+        fontSize: 16,
+        padding: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    kaufenButton: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: { height: -3 },
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
+        }),
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        backgroundColor: '#2980b9',
+        padding: 20,
+    },
+    kaufenText: {
+        fontSize: 17,
+        color: '#FFF',
+        flex: 1
+    },
+    summe: {
+        fontSize: 17,
+        color: '#FFF',
     },
 })

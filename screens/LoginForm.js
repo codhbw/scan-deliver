@@ -5,15 +5,25 @@
  * Created by Surface Book on 30.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TextInput, KeyboardAvoidingView, Alert, TouchableOpacity } from 'react-native';
-import { NavigationProvider, StackNavigation, withNavigation } from '@expo/ex-navigation';
-import Router from '../navigation/Router'
-import RootNavigation from '../navigation/RootNavigation'
+import { Text, View, StyleSheet, Image, TextInput, KeyboardAvoidingView, Alert, TouchableOpacity, NativeModules, Platform, Button } from 'react-native';
+import { withNavigation } from '@expo/ex-navigation';
+import Router from '../navigation/Router';
+
+let authFunction;
 
 @withNavigation
 export default class LoginForm extends Component {
+    constructor()
+    {
+        super();
+    }
+    componentDidMount()
+    {
+        authFunction();
+    }
     _login = () => {
-        this.props.navigator.push(Router.getRoute('rootNavigation'));
+        Alert.alert('Einkauf abgeschlossen!', 'Weitere Details haben wir an barack.obama@gmail.com geschickt.')
+        this.props.navigator.push(Router.getRoute('cart'));
     };
     _registrieren = () => {
         Alert.alert(
@@ -21,8 +31,37 @@ export default class LoginForm extends Component {
             'Sie sind nun angemeldet',
         );
     };
+    state = {
+        waiting: false,
+    };
 
     render() {
+        if (Platform.OS === 'android') {
+            authFunction = async () => {
+                this.setState({ waiting: true });
+                try {
+                    let result = await NativeModules.ExponentFingerprint.authenticateAsync();
+                    if (result.success) {
+                        this._login()
+                    } else {
+                        console.log("TouchID fehlgeschlagen");
+                    }
+                } finally {
+                    this.setState({ waiting: false });
+                }
+            };
+        } else if (Platform.OS === 'ios') {
+            authFunction = async () => {
+                let result = await NativeModules.ExponentFingerprint.authenticateAsync(
+                    'Melde dich per TouchID bei Scan&Deliver an'
+                );
+                if (result.success) {
+                    this._login();
+                } else {
+                    console.log("TouchID fehlgeschlagen");
+                }
+            };
+        }
         return (
             <View style={styles.formContainer}>
                 <TextInput

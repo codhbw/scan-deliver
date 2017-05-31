@@ -8,11 +8,10 @@ import {
     Text,
     TouchableOpacity,
     View,
-    AsyncStorage
+    AsyncStorage,
+    StatusBar
 } from 'react-native';
 import ShoppingCartList from '../components/ShoppingCartList';
-
-import { MonoText } from '../components/StyledText';
 
 export default class CartScreen extends React.Component {
   static route = {
@@ -36,6 +35,9 @@ export default class CartScreen extends React.Component {
             if (value != null) {
                 let parsed = JSON.parse(value);
                 console.log("CartScreen: Value from AsyncStorage = " + value);
+
+                // Nur setState verwenden, wenn sich die Anzahl der Items geändert hat
+                // (sonst gibt es eine Endlos-Schleife von Update-Zyklen
                 if (this.state.items.length != parsed.length) {
                     this.setState({items: JSON.parse(value)});
                 }
@@ -58,6 +60,7 @@ export default class CartScreen extends React.Component {
         console.log(this.state.items);
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content"/>
                 <ShoppingCartList rows={this.state.items} />
             </View>
         );
@@ -110,31 +113,6 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: 'rgba(96,100,109, 1)',
         lineHeight: 23,
-        textAlign: 'center',
-    },
-    tabBarInfoContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 20,
-            },
-        }),
-        alignItems: 'center',
-        backgroundColor: '#fbfbfb',
-        paddingVertical: 20,
-    },
-    tabBarInfoText: {
-        fontSize: 17,
-        color: 'rgba(96,100,109, 1)',
         textAlign: 'center',
     },
     navigationFilename: {

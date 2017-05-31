@@ -17,11 +17,14 @@
     "@expo/samples": "~1.0.3",
     "@expo/vector-icons": "~5.0.0",
     "expo": "17.0.0",
+    "radio-button-react-native": "^1.1.6",
     "react": "16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
     "react-native-modal-dropdown": "^0.4.3",
     "react-native-prompt": "^1.0.0",
+    "react-native-checkbox": "^1.1.0",
     "react-native-root-modal": "^1.1.1",
+    "react-native-touch-id": "^3.0.0",
     "react-redux": "^5.0.5"
   },
   "devDependencies": {
