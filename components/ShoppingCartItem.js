@@ -22,7 +22,6 @@ export default class ShoppingCartItem extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {size: "-"};
     }
 
     render() {
@@ -53,10 +52,52 @@ export default class ShoppingCartItem extends React.Component {
                         </Text>
                     </View>
 
-                    <View>
+                    <View style={styles.dropdown}>
+                        <Text/>
                         <ModalDropdown
                             style={styles.dropdown}
-                            options={['-', 'xs', 's', 'm', 'l', 'xl', 'xxl']}
+                            options={['keine', 'Größe xs', 'Größe s', 'Größe m', 'Größe l', 'Größe xl', 'Größe xxl']}
+                            defaultValue={this.props.size}/>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <MaterialIcons name="chevron-right" size={30} color="#b8c3c9" />
+                    </View>
+                </TouchableNativeFeedback>
+            );
+        }
+
+        if(this.props.type === 'spende'){
+            return (
+                <TouchableNativeFeedback
+                    fallback={TouchableHighlight}
+                    underlayColor="#ccc"
+                    style={styles.container}>
+                    <View style={styles.logoContainer}>
+                        <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
+                            <Image
+                                resizeMode="contain"
+                                source={{uri: this.props.bildUrl }}
+                                style={styles.logo}
+                            />
+                        </FadeIn>
+                    </View>
+
+                    <View style={styles.infoContainer}>
+                        <Text style={styles.name}>
+                            {this.props.name}
+                        </Text>
+
+                        <Text style={styles.price}>
+                            {this.props.preis}
+                        </Text>
+                    </View>
+
+                    <View style={styles.dropdown}>
+                        <Text/>
+                        <ModalDropdown
+                            style={styles.dropdown}
+                            options={['keine', 'Größe xs', 'Größe s', 'Größe m', 'Größe l', 'Größe xl', 'Größe xxl']}
                             defaultValue={this.props.size}/>
                     </View>
 
@@ -82,16 +123,22 @@ const styles = StyleSheet.create({
         width: Layout.window.width,
     },
     infoContainer: {
-        flex: 1,
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         paddingLeft: 10
     },
+    sizeContainer: {
+        paddingLeft: 10
+    },
     dropdown: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         width: 40,
         height: 40,
         marginTop: 5,
+        fontSize: 20,
     },
     name: {
         fontSize: 16,

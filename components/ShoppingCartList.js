@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { FlatList, Text, StyleSheet, AsyncStorage } from 'react-native'
-import ShoppingCartItem from './ShoppingCartItem'
+import Kleidung from './Kleidung'
+import Spende from './Spende'
 
 const rows = [
-    {id: 0, type: 'clothing', name: 'T-Shirt', size: 'm', preis: '59,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 1, type: 'clothing', name: 'Jeans', size: 'm', preis: '34,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 2, type: 'clothing', name: 'Stoffhose', size: 'm', preis: '89,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 3, type: 'clothing', name: 'Bluse', size: 'm', preis: '59,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 4, type: 'clothing', name: 'Shirt', size: 'm', preis: '34,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 5, type: 'clothing', name: 'Kurze Hose', size: 'm', preis: '89,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 1, type: 'kleidung', name: 'Jeans', size: 'Größe m', preis: '34,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 2, type: 'kleidung', name: 'Stoffhose', size: 'Größe m', preis: '89,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 3, type: 'kleidung', name: 'Bluse', size: 'Größe m', preis: '59,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 4, type: 'kleidung', name: 'Shirt', size: 'Größe m', preis: '34,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 5, type: 'kleidung', name: 'Kurze Hose', size: 'Größe m', preis: '89,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
+    {id: 6, type: 'spende', name: 'Brot für die Welt', preis: '20 €', bildUrl: 'http://www.fairworldfonds.de/assets/beteiligte/2015_brot.png'},
+    {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', bildUrl: 'https://ssl.aerzte-ohne-grenzen.de/img/logos/msf_germany_logo.png'},
 ]
 
 async function saveItems(allitems){
@@ -46,9 +49,16 @@ export default class App extends Component {
     }
 
     renderItem = ({item}) => {
-        return (
-            <ShoppingCartItem type={item.type} name={item.name} preis={item.preis} bildUrl={item["bild-url"]} key={item.key}/>
-        )
+        if(item.type === 'kleidung'){
+            return(
+                <Kleidung name={item.name} size={item.size} preis={item.preis} bildUrl={item.bildUrl}/>
+            )
+        }
+        if(item.type === 'spende'){
+            return(
+                <Spende name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
+            )
+        }
     }
 
     render() {
