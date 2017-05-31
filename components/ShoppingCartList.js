@@ -62,10 +62,12 @@ export default class App extends Component {
     }
 
     render() {
+        console.log("ShoppingCartList Props");
+        console.log(this.props);
         return (
             <FlatList
                 style={styles.container}
-                data={rows}
+                data={this.props.rows}
                 renderItem={this.renderItem}
                 keyExtractor={extractKey}
             />

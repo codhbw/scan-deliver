@@ -30,7 +30,8 @@ export default class ShoppingCartItem extends React.Component {
                 <TouchableNativeFeedback
                     fallback={TouchableHighlight}
                     underlayColor="#ccc"
-                    style={styles.container}>
+                    style={styles.container}
+                    key={this.props.key}>
                     <View style={styles.logoContainer}>
                         <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                             <Image
@@ -105,6 +106,8 @@ export default class ShoppingCartItem extends React.Component {
                     </View>
                 </TouchableNativeFeedback>
             );
+        } else {
+            return null;
         }
     }
 }
