@@ -41,7 +41,7 @@ try {
 }
 */
 
-const extractKey = ({id}) => id
+const extractKey = ({key}) => key
 
 export default class App extends Component {
 
@@ -68,7 +68,7 @@ export default class App extends Component {
         return (
             <FlatList
                 style={styles.container}
-                data={rows}
+                data={this.props.rows}
                 renderItem={this.renderItem}
                 keyExtractor={extractKey}
             />
