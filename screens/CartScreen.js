@@ -36,6 +36,9 @@ export default class CartScreen extends React.Component {
             if (value != null) {
                 let parsed = JSON.parse(value);
                 console.log("CartScreen: Value from AsyncStorage = " + value);
+
+                // Nur setState verwenden, wenn sich die Anzahl der Items geändert hat
+                // (sonst gibt es eine Endlos-Schleife von Update-Zyklen
                 if (this.state.items.length != parsed.length) {
                     this.setState({items: JSON.parse(value)});
                 }

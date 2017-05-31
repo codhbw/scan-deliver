@@ -17,8 +17,10 @@ export default class SettingsScreen extends React.Component {
     try {
       console.log("Clearing cache");
       await AsyncStorage.removeItem("items");
+      await AsyncStorage.clear();
     } catch (error) {
       console.log("Cannot clear cache");
+      console.log(error);
     }
   }
 
