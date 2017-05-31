@@ -51,7 +51,7 @@ export default class Scan extends React.Component {
                 <StatusBar barStyle="dark-content"/>
                 <View style={styles.welcomeContainer}>
                     <Image
-                        source={require('../assets/images/expo-wordmark.png')}
+                        source={require('../assets/images/sd-logo.png')}
                         style={styles.welcomeImage}
                     />
                 </View>
@@ -96,11 +96,9 @@ const styles = StyleSheet.create({
         height: 300
     },
     welcomeImage: {
-        width: 140,
-        height: 38,
+        width: 70,
+        height: 70,
         resizeMode: 'contain',
-        marginTop: 3,
-        marginLeft: -10,
     },
     sum: {
         margin: 40,
