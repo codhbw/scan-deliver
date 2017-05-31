@@ -9,6 +9,7 @@ import { Text, View, StyleSheet, Image, TextInput, KeyboardAvoidingView, Alert, 
 import { NavigationProvider, StackNavigation, withNavigation } from '@expo/ex-navigation';
 import Router from '../navigation/Router'
 import RootNavigation from '../navigation/RootNavigation'
+import TouchID from 'react-native-touch-id';
 
 @withNavigation
 export default class LoginForm extends Component {
@@ -20,6 +21,25 @@ export default class LoginForm extends Component {
             'Erfolg!',
             'Sie sind nun angemeldet',
         );
+    };
+
+    _pressHandler() {
+        TouchID.authenticate('to demo this react-native component')
+            .then(success => {
+                Alert.alert('Authenticated successful');
+            })
+            .catch(error => {
+                Alert.alert('Authentication failed ' + error);
+            });
+        // TouchID.isSupported()
+        //     .then(supported => {
+        //         // Success code
+        //         Alert.alert('TouchID is supported.');
+        //     })
+        //     .catch(error => {
+        //         // Failure code
+        //         Alert.alert(error);
+        //     });
     };
 
     render() {
