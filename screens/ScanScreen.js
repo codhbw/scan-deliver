@@ -18,7 +18,8 @@ export default class Scan extends React.Component {
             hasCameraPermission: null,
             // QR Code wird nur gescannt, wenn canScan = true
             canScan: true,
-            items : []
+            items : [],
+            hasNewData : false
         };
     }
 
@@ -39,6 +40,13 @@ export default class Scan extends React.Component {
         console.log("ScanScreen: ComponentWillMount");
         this._requestCameraPermission();
         this._loadData();
+    }
+
+    componentWillUpdate() {
+        if (this.state.hasNewData) {
+            this._loadData();
+            this.setState({hasNewData: false});
+        }
     }
 
     _requestCameraPermission = async () => {
@@ -80,7 +88,7 @@ export default class Scan extends React.Component {
         newItems.push(neu);
 
         this._save(newItems);
-        this.setState({items: newItems, canScan: true});
+        this.setState({items: newItems, canScan: true, hasNewData: true});
     }
 
     _save = async (items) => {
@@ -102,7 +110,6 @@ export default class Scan extends React.Component {
     }
 
     render() {
-        this._loadData();
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>

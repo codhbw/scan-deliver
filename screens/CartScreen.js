@@ -34,17 +34,27 @@ export default class CartScreen extends React.Component {
             console.log("CartScreen: Getting Storage");
             const value = await AsyncStorage.getItem("items");
             if (value != null) {
+                let parsed = JSON.parse(value);
                 console.log("CartScreen: Value from AsyncStorage = " + value);
-                this.setState({items: JSON.parse(value)});
+                if (this.state.items.length != parsed.length) {
+                    this.setState({items: JSON.parse(value)});
+                }
             };
         } catch (error) {
             console.log("Error: " + error);
         }
     }
 
+    componentWillMount() {
+        this._loadData();
+    }
+
+    componentWillUpdate() {
+        this._loadData();
+    }
+
     render() {
         console.log("CartScreen::Render: Rows:");
-        this._loadData();
         console.log(this.state.items);
         return (
             <View style={styles.container}>
