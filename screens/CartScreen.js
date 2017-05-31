@@ -42,12 +42,9 @@ export default class CartScreen extends React.Component {
         }
     }
 
-    componentWillMount() {
-        this._loadData();
-    }
-
     render() {
         console.log("CartScreen::Render: Rows:");
+        this._loadData();
         console.log(this.state.items);
         return (
             <View style={styles.container}>

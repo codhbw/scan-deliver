@@ -23,6 +23,7 @@ export default class SettingsScreen extends React.Component {
   }
 
   render() {
+    this._clearCache();
     return (
       <ScrollView
         style={styles.container}

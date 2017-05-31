@@ -102,6 +102,7 @@ export default class Scan extends React.Component {
     }
 
     render() {
+        this._loadData();
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>
