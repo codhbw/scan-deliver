@@ -40,7 +40,7 @@ try {
     // Error retrieving data
 }
 
-const extractKey = ({id}) => id
+const extractKey = ({key}) => key
 
 export default class App extends Component {
 
