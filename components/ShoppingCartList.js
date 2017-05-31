@@ -51,7 +51,7 @@ try {
 const extractKey = ({key}) => key
 
 @withNavigation
-export default class App extends Component {
+export default class ShoppingCartList extends Component {
 
     constructor(props) {
         super(props);
@@ -65,6 +65,8 @@ export default class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("NEXT PROPS COMING");
+        console.log(nextProps);
         this.setState({items: nextProps.rows});
     }
 
@@ -151,7 +153,7 @@ export default class App extends Component {
             return (
                 <View style={styles.container}>
                     <FlatList
-                        data={this.state.rows}
+                        data={this.state.items}
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
