@@ -19,6 +19,7 @@ export default class Spende extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {preis: "20 €"};
     }
 
     render() {
@@ -55,6 +56,10 @@ export default class Spende extends React.Component {
             </TouchableNativeFeedback>
         );
     }
+}
+
+async function _handleTextChange(value) {
+    this.state.preis = value;
 }
 
 const styles = StyleSheet.create({

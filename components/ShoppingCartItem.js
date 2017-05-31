@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         marginTop: 5,
-        fontSize: 20,
     },
     name: {
         fontSize: 16,
