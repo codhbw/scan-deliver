@@ -53,7 +53,7 @@ export default class Scan extends React.Component {
             this.setState({canScan: false});
             Alert.alert(
                 'Danke für die Spende!',
-                JSON.stringify(data),
+                "",
                 [
                     {text: "Ignorieren", onPress: () => this._ignorieren(data)},
                     {text: "Hinzufügen", onPress: () => this._hinzufuegen(data)}
@@ -63,14 +63,22 @@ export default class Scan extends React.Component {
     };
 
     _hinzufuegen(data) {
-        console.log("Data = " + JSON.stringify(data));
         console.log("ScanScreen - State.Items = " + this.state.items);
 
-        let neu = data.data;
-        neu = Object.assign({}, neu, {key: this.state.items.length + 1})
+        let parsedObject = JSON.parse(data.data);
+        console.log("Data:");
+        console.log(data.data);
+
+        var neu = {
+            ...parsedObject,
+            key: this.state.items.length + 1
+        };
+        console.log("Data-Neu:");
+        console.log(neu);
 
         let newItems = this.state.items;
         newItems.push(neu);
+
         this._save(newItems);
         this.setState({items: newItems, canScan: true});
     }
