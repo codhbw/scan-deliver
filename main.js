@@ -3,6 +3,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { NavigationProvider, StackNavigation } from '@expo/ex-navigation';
 import { FontAwesome } from '@expo/vector-icons';
+import SplashScreen from './screens/SplashScreen';
 
 import Router from './navigation/Router';
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
@@ -19,11 +20,12 @@ class AppContainer extends React.Component {
   async _loadAssetsAsync() {
     try {
       await cacheAssetsAsync({
-        images: [require('./assets/images/expo-wordmark.png')],
+        images: [require('./assets/images/expo-wordmark.png'), require('./assets/images/gruppenbild.png'), require('./assets/images/sd-logo.png'), require('./assets/images/sd-logo-schrift.png'), require('./assets/images/gruppenbild-small.jpg')],
         fonts: [
           FontAwesome.font,
           { 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') },
         ],
+          ms: 20000
       });
     } catch (e) {
       console.warn(
@@ -53,7 +55,7 @@ class AppContainer extends React.Component {
         </View>
       );
     } else {
-      return <Expo.AppLoading />;
+      return <SplashScreen />;
     }
   }
 }

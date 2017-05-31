@@ -139,21 +139,8 @@ export default class App extends Component {
     render() {
         console.log("ShoppingCartList State");
         console.log(this.state);
-        return (
-            <FlatList
-                style={styles.container}
-                data={this.state.items}
-                renderItem={this.renderItem}
-                keyExtractor={extractKey}
-            />
-        );
-        if (this.state.items === null || this.state.items.length === 0)
+        if (this.state.items !== null && this.state.items.length > 0)
         {
-            return (
-                <View style={styles.leereListeContainer}><Text style={styles.leereListe}>Sie haben noch keine Artikel in Ihrem Warenkorb.</Text></View>
-            );
-        }
-        else {
             return (
                 <View style={styles.container}>
                     <FlatList
@@ -161,11 +148,16 @@ export default class App extends Component {
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
-                        onPress={this._kaufen}>
+                                      onPress={this._kaufen}>
                         <Text style={styles.kaufenText}>Kaufen</Text>
                         <Text style={styles.summe}>382,98 €</Text>
                     </TouchableOpacity>
                 </View>
+            );
+        }
+        else {
+            return (
+                <View style={styles.leereListeContainer}><Text style={styles.leereListe}>Sie haben noch keine Artikel in Ihrem Warenkorb.</Text></View>
             );
         }
     }

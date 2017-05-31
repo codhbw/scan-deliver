@@ -2,16 +2,16 @@
  * Created by Surface Book on 31.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Image, View, Platform } from 'react-native';
 import { Constants } from 'expo';
-import { withNavigation } from '@expo/ex-navigation';
+import { withNavigation, NavigationProvider, StackNavigation } from '@expo/ex-navigation';
 import Router from '../navigation/Router';
 
 @withNavigation
 export default class SplashScreen extends React.Component {
 
     _root = () => {
-        this.props.navigator.push(Router.getRoute('rootNavigation'));
+        this.props.navigator.push('rootNavigation');
     };
 
     render() {

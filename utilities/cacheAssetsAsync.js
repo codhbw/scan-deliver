@@ -1,8 +1,8 @@
 import { Image } from 'react-native';
 import { Asset, Font } from 'expo';
 
-export default function cacheAssetsAsync({ images = [], fonts = [] }) {
-  return Promise.all([...cacheImages(images), ...cacheFonts(fonts)]);
+export default function cacheAssetsAsync({ images = [], fonts = [], ms = 20000 }) {
+  return Promise.all([...cacheImages(images), ...cacheFonts(fonts), ...sleep(ms)]);
 }
 
 function cacheImages(images) {
@@ -17,4 +17,8 @@ function cacheImages(images) {
 
 function cacheFonts(fonts) {
   return fonts.map(font => Font.loadAsync(font));
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
