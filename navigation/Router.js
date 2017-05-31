@@ -4,7 +4,8 @@ import SettingsScreen from "../screens/SettingsScreen";
 import RootNavigation from "./RootNavigation";
 import CartScreen from "../screens/CartScreen";
 import Login from "../screens/Login";
-import AdressenScreen from "../screens/AdressenScreen"
+import AdressenScreen from "../screens/AdressenScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 export default createRouter(() => ({
   home: () => ScanScreen,
@@ -13,4 +14,5 @@ export default createRouter(() => ({
   cart: () => CartScreen,
   login: () => Login,
   adressen: () => AdressenScreen,
+  welcome: () => SplashScreen
 }));

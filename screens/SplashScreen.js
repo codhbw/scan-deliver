@@ -2,23 +2,31 @@
  * Created by Surface Book on 31.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Constants } from 'expo';
+import { withNavigation } from '@expo/ex-navigation';
+import Router from '../navigation/Router';
 
+@withNavigation
 export default class SplashScreen extends React.Component {
+
+    _root = () => {
+        this.props.navigator.push(Router.getRoute('rootNavigation'));
+    };
+
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={this._root}>
                 <Image
                     source={require('../assets/images/sd-logo-schrift.png')}
-                    style={{ height: 110 }}
+                    style={{ height: 150 }}
                     resizeMode={'contain'}
                 />
 
                 <Text style={styles.title}>
                     Willkommen
                 </Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 }
@@ -29,13 +37,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#3498db',
     },
     title: {
         margin: 70,
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#FFF'
     },
 });
