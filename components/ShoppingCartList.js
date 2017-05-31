@@ -17,15 +17,17 @@ export default class App extends Component {
 
     renderItem = ({item}) => {
         return (
-            <ShoppingCartItem name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
+            <ShoppingCartItem name={item.name} preis={item.preis} bildUrl={item["bild-url"]} key={item.key}/>
         )
     }
 
     render() {
+        console.log("ShoppingCartList Props");
+        console.log(this.props);
         return (
             <FlatList
                 style={styles.container}
-                data={rows}
+                data={this.props.rows}
                 renderItem={this.renderItem}
                 keyExtractor={extractKey}
             />

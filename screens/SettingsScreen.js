@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, AsyncStorage } from 'react-native';
 import { ExpoConfigView } from '@expo/samples';
 
 export default class SettingsScreen extends React.Component {
@@ -8,6 +8,19 @@ export default class SettingsScreen extends React.Component {
       title: 'exp.json',
     },
   };
+
+  componentWillMount() {
+    this._clearCache();
+  }
+
+  _clearCache = async () => {
+    try {
+      console.log("Clearing cache");
+      await AsyncStorage.setItem("items", JSON.stringify([]));
+    } catch (error) {
+      console.log("Cannot clear cache");
+    }
+  }
 
   render() {
     return (

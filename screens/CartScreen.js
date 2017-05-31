@@ -8,23 +8,50 @@ import {
     Text,
     TouchableOpacity,
     View,
+    AsyncStorage
 } from 'react-native';
 import ShoppingCartList from '../components/ShoppingCartList';
 
 import { MonoText } from '../components/StyledText';
 
-export default class CartScreen
-    extends React.Component {
-    static route = {
-        navigationBar: {
-            visible: false,
-        },
-    };
+export default class CartScreen extends React.Component {
+  static route = {
+    navigationBar: {
+      visible: false,
+    },
+  };
+
+  constructor() {
+      super();
+      console.log("Created CartScreen");
+      this.state = {
+          items : []
+      }
+  }
+
+    _loadData = async () => {
+        try {
+            console.log("CartScreen: Getting Storage");
+            const value = await AsyncStorage.getItem("items");
+            if (value != null) {
+                console.log("CartScreen: Value from AsyncStorage = " + value);
+                this.setState({items: JSON.parse(value)});
+            };
+        } catch (error) {
+            console.log("Error: " + error);
+        }
+    }
+
+    componentWillMount() {
+        this._loadData();
+    }
 
     render() {
+        console.log("CartScreen::Render: Rows:");
+        console.log(this.state.items);
         return (
             <View style={styles.container}>
-                <ShoppingCartList/>
+                <ShoppingCartList rows={this.state.items} />
             </View>
         );
     }
