@@ -62,11 +62,6 @@ export default class CartScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <ShoppingCartList rows={this.state.items} />
-                <TouchableOpacity style={styles.kaufenButton}
-                    onPress={this._registrieren}>
-                    <Text style={styles.kaufenText}>Kaufen</Text>
-                    <Text style={styles.summe}>382,98 €</Text>
-                </TouchableOpacity>
             </View>
         );
     }
@@ -119,36 +114,6 @@ const styles = StyleSheet.create({
         color: 'rgba(96,100,109, 1)',
         lineHeight: 23,
         textAlign: 'center',
-    },
-    kaufenButton: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOffset: { height: -3 },
-                shadowOpacity: 0.1,
-                shadowRadius: 3,
-            },
-            android: {
-                elevation: 20,
-            },
-        }),
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        backgroundColor: '#2980b9',
-        padding: 20,
-    },
-    kaufenText: {
-        fontSize: 17,
-        color: '#FFF',
-        flex: 1
-    },
-    summe: {
-        fontSize: 17,
-        color: '#FFF',
     },
     navigationFilename: {
         marginTop: 5,
