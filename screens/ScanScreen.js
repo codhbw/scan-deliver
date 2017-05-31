@@ -2,7 +2,7 @@
  * Created by Surface Book on 30.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, Image, StatusBar, AsyncStorage } from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, StatusBar, AsyncStorage, Modal, TouchableHighlight, TextInput, Button } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class Scan extends React.Component {
@@ -19,7 +19,10 @@ export default class Scan extends React.Component {
             // QR Code wird nur gescannt, wenn canScan = true
             canScan: true,
             items : [],
-            hasNewData : false
+            hasNewData : false,
+            modalVisible : false,
+            donationValue : "10",
+            aktivesItem : {}
         };
     }
 
@@ -77,8 +80,18 @@ export default class Scan extends React.Component {
         console.log("Data:");
         console.log(data.data);
 
+        this.setState({aktivesItem: parsedObject});
+
+        if (parsedObject.type == 'spende') {
+            this.setState({modalVisible: true})
+        } else {
+            this._itemMachen();
+        }
+    }
+
+    _itemMachen() {
         var neu = {
-            ...parsedObject,
+            ...this.state.aktivesItem,
             key: this.state.items.length + 1
         };
         console.log("Data-Neu:");
@@ -109,6 +122,23 @@ export default class Scan extends React.Component {
         this.setState({canScan: true});
     }
 
+    setModalVisible(status) {
+        this.setState({modalVisible: status});
+    }
+
+    donationOK() {
+        console.log("Zu Spenden: " + this.state.donationValue);
+        var aktivesItem = this.state.aktivesItem;
+        aktivesItem.preis = this.state.donationValue;
+        this.setState({aktivesItem: aktivesItem});
+        this._itemMachen();
+        this.setState({modalVisible: false});
+    }
+
+    donationCancel() {
+        this.setState({modalVisible: false});
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -119,6 +149,33 @@ export default class Scan extends React.Component {
                         style={styles.welcomeImage}
                     />
                 </View>
+
+                <Modal
+                    animationType={"slide"}
+                    transparent={false}
+                    visible={this.state.modalVisible}>
+                    <View style={{marginTop: 22}}>
+                        <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+                            <Text style={styles.paragraph}>
+                                Was für ein Betrag soll gespendet werden?
+                            </Text>
+                            <View style={{flexDirection: 'row', height: 50, justifyContent: 'center'}}>
+                                <TextInput
+                                    style={styles.donationInput}
+                                    value={this.state.donationValue}
+                                    onChangeText={(value) => {this.setState({donationValue: value})}}/>
+                                <Text style={{fontSize: 28}}>€</Text>
+                            </View>
+                            <TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
+                                <View>
+                                    <Button title="OK" onPress={() => this.donationOK()} />
+                                    <Button title="Abbrechen" onPress={() => this.donationCancel()} />
+                                </View>
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
+
                 <Text style={styles.paragraph}>
                     Füge ein Produkt hinzu, indem Du einen QR-Code scannst.
                 </Text>
@@ -140,8 +197,6 @@ export default class Scan extends React.Component {
     }
 }
 
-//export default connect(mapStateToProps, mapDispatchToProps)(Scan);
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -160,6 +215,12 @@ const styles = StyleSheet.create({
     qrcode: {
         width: 300,
         height: 300
+    },
+    donationInput: {
+        fontSize: 24,
+        textAlign: 'center',
+        height: 40,
+        width: 60
     },
     welcomeImage: {
         width: 70,
