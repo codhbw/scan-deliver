@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {
+    Picker,
     Image,
     Platform,
     StyleSheet,
@@ -13,42 +14,57 @@ import {
 import FadeIn from '@expo/react-native-fade-in-image';
 import TouchableNativeFeedback from '@expo/react-native-touchable-native-feedback-safe';
 import { MaterialIcons } from '@expo/vector-icons';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import Layout from '../constants/Layout';
 
 export default class ShoppingCartItem extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {size: "-"};
+    }
+
     render() {
-        return (
-            <TouchableNativeFeedback
-                fallback={TouchableHighlight}
-                underlayColor="#ccc"
-                style={styles.container}>
-                <View style={styles.logoContainer}>
-                    <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
-                        <Image
-                            resizeMode="contain"
-                            source={{uri: this.props.bildUrl }}
-                            style={styles.logo}
-                        />
-                    </FadeIn>
-                </View>
+        if(this.props.type === 'clothing'){
+            return (
+                <TouchableNativeFeedback
+                    fallback={TouchableHighlight}
+                    underlayColor="#ccc"
+                    style={styles.container}>
+                    <View style={styles.logoContainer}>
+                        <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
+                            <Image
+                                resizeMode="contain"
+                                source={{uri: this.props.bildUrl }}
+                                style={styles.logo}
+                            />
+                        </FadeIn>
+                    </View>
 
-                <View style={styles.infoContainer}>
-                    <Text style={styles.name}>
-                        {this.props.name}
-                    </Text>
+                    <View style={styles.infoContainer}>
+                        <Text style={styles.name}>
+                            {this.props.name}
+                        </Text>
 
-                    <Text style={styles.price}>
-                        {this.props.preis}
-                    </Text>
-                </View>
+                        <Text style={styles.price}>
+                            {this.props.preis}
+                        </Text>
+                    </View>
 
-                <View style={styles.buttonContainer}>
-                    <MaterialIcons name="chevron-right" size={30} color="#b8c3c9" />
-                </View>
-            </TouchableNativeFeedback>
-        );
+                    <View>
+                        <ModalDropdown
+                            style={styles.dropdown}
+                            options={['-', 'xs', 's', 'm', 'l', 'xl', 'xxl']}
+                            defaultValue={this.props.size}/>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <MaterialIcons name="chevron-right" size={30} color="#b8c3c9" />
+                    </View>
+                </TouchableNativeFeedback>
+            );
+        }
     }
 }
 
@@ -68,6 +84,11 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         paddingLeft: 10
+    },
+    dropdown: {
+        width: 40,
+        height: 40,
+        marginTop: 5,
     },
     name: {
         fontSize: 16,
