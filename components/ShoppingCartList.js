@@ -14,7 +14,6 @@ export default class ShoppingCartList extends Component {
 
     constructor(props) {
         super(props);
-        this.props.rows = hardcodedrows;
         console.log(this.props.rows.length);
         console.log("Constructor von Shoppingcart called");
         this.state = {

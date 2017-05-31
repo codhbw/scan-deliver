@@ -58,6 +58,7 @@ export default class CartScreen extends React.Component {
 
     componentWillUpdate() {
         console.log("CartScreen: ComponentWillUpdate");
+        this._loadData();
     }
 
     render() {
