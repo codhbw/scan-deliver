@@ -45,18 +45,19 @@ export default class CartScreen extends React.Component {
                     console.log("CartScreen::loadData - Längen unterscheiden sich!");
                     this.setState({items: JSON.parse(value)});
                 }
-            };
+            }
         } catch (error) {
             console.log("Error: " + error);
         }
     }
 
     componentWillMount() {
+        console.log("CartScreen: ComponentWillMount");
         this._loadData();
     }
 
     componentWillUpdate() {
-        this._loadData();
+        console.log("CartScreen: ComponentWillUpdate");
     }
 
     render() {

@@ -27,6 +27,8 @@ export default class ShoppingCartList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("NEXT PROPS COMING");
+        console.log(nextProps);
         this.setState({items: nextProps.rows});
     }
 
@@ -113,7 +115,7 @@ export default class ShoppingCartList extends Component {
             return (
                 <View style={styles.container}>
                     <FlatList
-                        data={this.state.rows}
+                        data={this.state.items}
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
