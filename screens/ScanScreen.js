@@ -22,7 +22,10 @@ export default class Scan extends React.Component {
             hasNewData : false,
             modalVisible : false,
             donationValue : "10",
-            aktivesItem : {}
+            aktivesItem : {},
+            summe : 0,
+            limit: 500,
+            summeColor: '#00cc00'
         };
     }
 
@@ -104,7 +107,17 @@ export default class Scan extends React.Component {
         newItems.push(neu);
 
         this._save(newItems);
-        this.setState({items: newItems, canScan: true, hasNewData: true});
+
+        let alteSumme = (this.state.summe == null || this.state.summe == undefined) ? 0 : this.state.summe
+        let summe = parseFloat(parseFloat(alteSumme) + parseFloat(neu.preis));
+
+        if (summe > this.state.limit) {
+            this.setRedColor();
+        } else {
+            this.setGreenColor();
+        }
+
+        this.setState({items: newItems, canScan: true, hasNewData: true, summe: summe});
     }
 
     _save = async (items) => {
@@ -127,6 +140,14 @@ export default class Scan extends React.Component {
 
     setModalVisible(status) {
         this.setState({modalVisible: status});
+    }
+
+    setGreenColor() {
+        this.setState({summeColor: '#00cc00'});
+    }
+
+    setRedColor() {
+        this.setState({summeColor: '#cc0000'});
     }
 
     donationOK() {
@@ -192,8 +213,8 @@ export default class Scan extends React.Component {
                             style={styles.qrcode}
                         />
                 }
-                <Text style={styles.sum}>
-                    99 €
+                <Text style={{margin: 40, fontSize: 36, fontWeight: 'bold', textAlign: 'center', color: this.state.summeColor}}>
+                    {this.state.summe} €
                 </Text>
 
             </View>
