@@ -36,7 +36,7 @@ export default class ShoppingCartItem extends React.Component {
                         <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                             <Image
                                 resizeMode="contain"
-                                source={{uri: this.props.bildUrl }}
+                                source={{uri: this.props.imgResource }}
                                 style={styles.logo}
                             />
                         </FadeIn>
@@ -77,7 +77,7 @@ export default class ShoppingCartItem extends React.Component {
                         <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                             <Image
                                 resizeMode="contain"
-                                source={{uri: this.props.bildUrl }}
+                                source={{uri: this.props.imgResource }}
                                 style={styles.logo}
                             />
                         </FadeIn>

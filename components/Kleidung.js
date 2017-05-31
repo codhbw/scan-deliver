@@ -31,7 +31,7 @@ export default class Kleidung extends React.Component {
                     <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                         <Image
                             resizeMode="contain"
-                            source={{uri: this.props.bildUrl }}
+                            source={this.props.imgResource}
                             style={styles.logo}
                         />
                     </FadeIn>

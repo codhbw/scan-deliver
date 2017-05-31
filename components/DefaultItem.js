@@ -14,7 +14,7 @@ import Prompt from 'react-native-prompt';
 
 import Layout from '../constants/Layout';
 
-export default class Spende extends React.Component {
+export default class DefaultItem extends React.Component {
 
     constructor(props) {
         super(props);
