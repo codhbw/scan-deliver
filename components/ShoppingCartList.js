@@ -47,7 +47,7 @@ export default class App extends Component {
 
     renderItem = ({item}) => {
         return (
-            <ShoppingCartItem type={item.type} name={item.name} preis={item.preis} bildUrl={item["bild-url"]}/>
+            <ShoppingCartItem type={item.type} name={item.name} preis={item.preis} bildUrl={item["bild-url"]} key={item.key}/>
         )
     }
 

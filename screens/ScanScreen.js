@@ -12,8 +12,8 @@ export default class Scan extends React.Component {
         },
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             hasCameraPermission: null,
             // QR Code wird nur gescannt, wenn canScan = true
