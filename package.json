@@ -1,5 +1,5 @@
 {
-  "name": "MyNewProject",
+  "name": "ScanAndDeliver",
   "version": "1.0.0",
   "description": "",
   "author": "",
@@ -24,8 +24,6 @@
     "react-redux": "^5.0.5"
   },
   "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
     "jest-expo": "~1.0.1"
   }
 }
