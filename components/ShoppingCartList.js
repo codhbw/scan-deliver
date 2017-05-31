@@ -7,54 +7,16 @@ import Swipeout from 'react-native-swipeout';
 import { withNavigation } from '@expo/ex-navigation';
 import Router from '../navigation/Router'
 
-
-const rows = [
-    {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 1, type: 'kleidung', name: 'Jeans', size: 'Größe m', preis: '34,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 2, type: 'kleidung', name: 'Stoffhose', size: 'Größe m', preis: '89,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 3, type: 'kleidung', name: 'Bluse', size: 'Größe m', preis: '59,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 4, type: 'kleidung', name: 'Shirt', size: 'Größe m', preis: '34,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 5, type: 'kleidung', name: 'Kurze Hose', size: 'Größe m', preis: '89,99 €', bildUrl:'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
-    {id: 6, type: 'spende', name: 'Brot für die Welt', preis: '20 €', bildUrl:'http://52.178.177.170/images/brotfuerdiewelt.png'},
-    {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', bildUrl:'http://52.178.177.170/images/aerzteohnegrenzen.png'},
-    {id: 8, type: 'moebel', name: 'Lederstuhl', preis: '180 €', bildUrl:'http://52.178.177.170/images/stuhl.jpg'},
-    {id: 9, type: 'kissen', name: 'Gelbes Kissen', preis: '15 €', bildUrl:'http://52.178.177.170/images/kissen.jpg'},
-];
-/*
-async function saveItems(allitems){
-    await AsyncStorage.setItem('@store:items', JSON.stringify(allitems));
-}
-
-async function loadItems(){
-    const items = await AsyncStorage.getItem('@store:items');
-    return items;
-}
-
-try {
-    saveItems(rows);
-} catch (error) {
-    // Error saving data
-}
-
-try {
-    const items = loadItems();
-    if (items !== null){
-        // We have data!!
-        console.log('success');
-        console.log(items)
-    }
-} catch (error) {
-    // Error retrieving data
-}
-*/
-
 const extractKey = ({key}) => key
 
 @withNavigation
-export default class App extends Component {
+export default class ShoppingCartList extends Component {
 
     constructor(props) {
         super(props);
+        this.props.rows = hardcodedrows;
+        console.log(this.props.rows.length);
+        console.log("Constructor von Shoppingcart called");
         this.state = {
             items: this.props.rows
         };
