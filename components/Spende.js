@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Picker,
     Image,
     Platform,
     StyleSheet,
@@ -11,7 +10,7 @@ import {
 import FadeIn from '@expo/react-native-fade-in-image';
 import TouchableNativeFeedback from '@expo/react-native-touchable-native-feedback-safe';
 import { MaterialIcons } from '@expo/vector-icons';
-import ModalDropdown from 'react-native-modal-dropdown';
+import Prompt from 'react-native-prompt';
 
 import Layout from '../constants/Layout';
 
@@ -19,7 +18,7 @@ export default class Spende extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {preis: "20 €"};
+        this.state = { preis: "20 €", promptVisible: true };
     }
 
     render() {
@@ -48,6 +47,18 @@ export default class Spende extends React.Component {
                     <Text style={styles.price}>
                         {this.props.preis}
                     </Text>
+                    <Prompt
+                        title="Wähle deinen Spendenbetrag"
+                        defaultValue={ this.state.preis }
+                        visible={ this.state.promptVisible }
+                        onCancel={ () => this.setState({
+                            promptVisible: false,
+                            message: "You cancelled"
+                        }) }
+                        onSubmit={ (value) => this.setState({
+                            promptVisible: false,
+                            message: `You said "${value}"`
+                        }) }/>
                 </View>
 
                 <View style={styles.buttonContainer}>
