@@ -41,7 +41,7 @@ try {
 }
 */
 
-const extractKey = ({key}) => key
+const extractKey = ({id}) => id
 
 export default class App extends Component {
 
