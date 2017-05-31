@@ -64,6 +64,8 @@ export default class ShoppingCartItem extends React.Component {
                     </View>
                 </TouchableNativeFeedback>
             );
+        } else {
+            return null;
         }
     }
 }
