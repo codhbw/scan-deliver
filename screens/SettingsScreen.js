@@ -40,7 +40,7 @@ export default class SettingsScreen extends React.Component {
         <ScrollView>
           <View style={styles.container}>
                 <Image
-                    source={require('../assets/images/gruppenbild.png')}
+                    source={require('../assets/images/gruppenbild-small.jpg')}
                     style={styles.profilbild}
                     resizeMode={'center'}
                 />
