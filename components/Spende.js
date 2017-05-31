@@ -10,7 +10,6 @@ import {
 import FadeIn from '@expo/react-native-fade-in-image';
 import TouchableNativeFeedback from '@expo/react-native-touchable-native-feedback-safe';
 import { MaterialIcons } from '@expo/vector-icons';
-import Prompt from 'react-native-prompt';
 
 import Layout from '../constants/Layout';
 

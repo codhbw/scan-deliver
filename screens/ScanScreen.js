@@ -39,10 +39,13 @@ export default class Scan extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this._loadData();
+    }
+
     componentWillMount() {
         console.log("ScanScreen: ComponentWillMount");
         this._requestCameraPermission();
-        this._loadData();
     }
 
     componentWillUpdate() {
@@ -153,7 +156,8 @@ export default class Scan extends React.Component {
                 <Modal
                     animationType={"slide"}
                     transparent={false}
-                    visible={this.state.modalVisible}>
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => this.setModalVisible(false)}>
                     <View style={{marginTop: 22}}>
                         <View style={{flexDirection: 'column', justifyContent: 'center'}}>
                             <Text style={styles.paragraph}>

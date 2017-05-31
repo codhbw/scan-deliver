@@ -68,7 +68,7 @@ export default class App extends Component {
         this.setState({items: nextProps.rows});
     }
 
-    blah(index) {
+    removeItem(index) {
         return [{
             text: 'Löschen',
             backgroundColor: '#cc0000',
@@ -101,7 +101,7 @@ export default class App extends Component {
             items.splice(deleteIndex, 1);
         }
 
-        this._save(items);
+        //this._save(items);
         this.setState({items: items});
     }
 
@@ -122,15 +122,15 @@ export default class App extends Component {
     renderItem = ({item}) => {
         if(item.type === 'kleidung'){
             return(
-                <Swipeout right={this.blah(item.key)}>
-                    <Kleidung name={item.name} size={item.size} preis={item.preis} bildUrl={item.imgResource}/>
+                <Swipeout right={this.removeItem(item.key)}>
+                    <Kleidung name={item.name} size={item.size} preis={item.preis} bildUrl={item.bildUrl}/>
                 </Swipeout>
             )
         }
         else if(item.type === 'spende'){
             return(
-                <Swipeout right={this.blah(item.key)}>
-                    <Spende name={item.name} preis={item.preis} bildUrl={item.imgResource}/>
+                <Swipeout right={this.removeItem(item.key)}>
+                    <Spende name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
                 </Swipeout>
             )
         }
