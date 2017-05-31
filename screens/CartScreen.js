@@ -8,11 +8,10 @@ import {
     Text,
     TouchableOpacity,
     View,
-    AsyncStorage
+    AsyncStorage,
+    StatusBar
 } from 'react-native';
 import ShoppingCartList from '../components/ShoppingCartList';
-
-import { MonoText } from '../components/StyledText';
 
 export default class CartScreen extends React.Component {
   static route = {
@@ -61,6 +60,7 @@ export default class CartScreen extends React.Component {
         console.log(this.state.items);
         return (
             <View style={styles.container}>
+                <StatusBar barStyle="dark-content"/>
                 <ShoppingCartList rows={this.state.items} />
             </View>
         );

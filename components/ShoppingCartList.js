@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { FlatList, Text, StyleSheet, AsyncStorage, View, TouchableOpacity, Platform } from 'react-native'
 import Kleidung from './Kleidung'
 import Spende from './Spende'
+import { withNavigation } from '@expo/ex-navigation';
+import Router from '../navigation/Router'
 
 const rows = [
     {id: 0, type: 'kleidung', name: 'T-Shirt', size: 'Größe m', preis: '59,99 €', bildUrl: 'https://www.jazzyshirt.de/content/pics/produkte/maenner/basic-t-shirt-zoom.jpg'},
@@ -43,6 +45,7 @@ try {
 
 const extractKey = ({key}) => key
 
+@withNavigation
 export default class App extends Component {
 
     constructor(props) {
@@ -62,6 +65,10 @@ export default class App extends Component {
         }
     }
 
+    _kaufen = () => {
+        this.props.navigator.push(Router.getRoute('login'));
+    };
+
     render() {
         console.log("ShoppingCartList Props");
         console.log(this.props);
@@ -79,7 +86,7 @@ export default class App extends Component {
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
-                        onPress={this._registrieren}>
+                        onPress={this._kaufen}>
                         <Text style={styles.kaufenText}>Kaufen</Text>
                         <Text style={styles.summe}>382,98 €</Text>
                     </TouchableOpacity>
