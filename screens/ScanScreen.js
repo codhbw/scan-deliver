@@ -67,7 +67,7 @@ export default class Scan extends React.Component {
         console.log("ScanScreen - State.Items = " + this.state.items);
 
         let neu = data.data;
-        neu.key = this.state.items.length + 1;
+        neu = Object.assign({}, neu, {key: this.state.items.length + 1})
 
         let newItems = this.state.items;
         newItems.push(neu);
