@@ -13,7 +13,7 @@ const rows = [
     {id: 6, type: 'spende', name: 'Brot für die Welt', preis: '20 €', bildUrl: 'http://www.fairworldfonds.de/assets/beteiligte/2015_brot.png'},
     {id: 7, type: 'spende', name: 'Ärzte ohne Grenzen', preis: '10 €', bildUrl: 'https://ssl.aerzte-ohne-grenzen.de/img/logos/msf_germany_logo.png'},
 ]
-
+/*
 async function saveItems(allitems){
     await AsyncStorage.setItem('@store:items', JSON.stringify(allitems));
 }
@@ -39,6 +39,7 @@ try {
 } catch (error) {
     // Error retrieving data
 }
+*/
 
 const extractKey = ({id}) => id
 
@@ -67,7 +68,7 @@ export default class App extends Component {
         return (
             <FlatList
                 style={styles.container}
-                data={this.props.rows}
+                data={rows}
                 renderItem={this.renderItem}
                 keyExtractor={extractKey}
             />
