@@ -40,9 +40,9 @@ export default class SettingsScreen extends React.Component {
         <ScrollView>
           <View style={styles.container}>
                 <Image
-                    source={require('../assets/images/obama-profil.jpg')}
+                    source={require('../assets/images/gruppenbild.png')}
                     style={styles.profilbild}
-                    resizeMode={'contain'}
+                    resizeMode={'center'}
                 />
 
                 <TouchableNativeFeedback
