@@ -44,6 +44,18 @@ export default class ShoppingCartList extends Component {
     }
 
     _removeAtKey(key) {
+        Alert.alert(
+            "Wirklich löschen?",
+            "",
+            [
+                {text: "Nein", onPress: () => {}},
+                {text: "Ja", onPress: () => this._wirklichLoeschen(key)}
+            ]
+        );
+
+    }
+
+    _wirklichLoeschen(key) {
         this.props.store.removeItemByKey(key);
     }
 
