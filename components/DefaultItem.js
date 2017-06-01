@@ -29,7 +29,7 @@ export default class DefaultItem extends React.Component {
                     <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                         <Image
                             resizeMode="contain"
-                            source={this.props.imgResource}
+                            source={{uri: this.props.bildUrl}}
                             style={styles.logo}
                         />
                     </FadeIn>
@@ -43,7 +43,7 @@ export default class DefaultItem extends React.Component {
 
                 <View style={styles.infoContainer}>
                     <Text style={styles.price}>
-                        {this.props.preis}
+                        {this.props.preis} €
                     </Text>
                 </View>
 

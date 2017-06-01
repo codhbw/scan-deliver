@@ -11,7 +11,7 @@ import Router from '../navigation/Router';
 export default class SplashScreen extends React.Component {
 
     _root = () => {
-        this.props.navigator.push('rootNavigation');
+        this.props.navigator.replace('rootNavigation');
     };
 
     render() {

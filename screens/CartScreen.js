@@ -24,7 +24,7 @@ export default class CartScreen extends React.Component {
       super(props);
       console.log("Created CartScreen");
       this.state = {
-          items : []
+          items : [],
       }
   }
 
