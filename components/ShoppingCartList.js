@@ -14,21 +14,13 @@ export default class ShoppingCartList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.rows.length);
         console.log("Constructor von Shoppingcart called");
-        this.state = {
-            items: this.props.rows
-        };
-        console.log("PROPS____");
-        console.log(props);
-        console.log("STATE_____");
-        console.log(this.state);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log("NEXT PROPS COMING");
         console.log(nextProps);
-        this.setState({items: nextProps.rows});
+        this.setState({items: nextProps.items, sum: nextProps.sum});
     }
 
     removeItem(index) {
@@ -43,43 +35,7 @@ export default class ShoppingCartList extends Component {
     }
 
     _removeAtKey(key) {
-        console.log("REMOVE AT KEY:");
-        console.log(key);
-        var deleteIndex = null;
-        let items = this.state.items;
-        console.log("ITEMS:::");
-        console.log(items);
-        for (let i = 0; i < items.length; i++) {
-            let itemAtIndex = items[i];
-            console.log("Ist " + key + " = " + itemAtIndex.key + "?");
-            if (itemAtIndex.key == key) {
-                deleteIndex = i;
-            }
-        }
-
-        console.log("deleteIndex:");
-        console.log(deleteIndex);
-
-        if (deleteIndex !== null) {
-            items.splice(deleteIndex, 1);
-        }
-
-        //this._save(items);
-        this.setState({items: items});
-    }
-
-    _save = async (items) => {
-        try {
-            console.log("ShoppingCartList - Save");
-            if (items == null) {
-                console.log("ShoppingCartList - Items = Null");
-                items = [];
-            }
-            console.log("ShoppingCartList: Saving object into 'items': " + JSON.stringify(items));
-            await AsyncStorage.setItem("items", JSON.stringify(items));
-        } catch (error) {
-            console.log("ShoppingCartList Error: " + error);
-        }
+        this.props.store.removeItemByKey(key);
     }
 
     renderItem = ({item}) => {
@@ -103,24 +59,25 @@ export default class ShoppingCartList extends Component {
     }
 
     _kaufen = () => {
+        this.props.store.clear();
         this.props.navigator.push(Router.getRoute('login'));
     };
 
     render() {
         console.log("ShoppingCartList State");
-        console.log(this.state);
-        if (this.state.items !== null && this.state.items.length > 0)
+        console.log(this.props);
+        if (this.props.items !== null && this.props.items.length > 0)
         {
             return (
                 <View style={styles.container}>
                     <FlatList
-                        data={this.state.items}
+                        data={this.props.items}
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
                     <TouchableOpacity style={styles.kaufenButton}
                                       onPress={this._kaufen}>
                         <Text style={styles.kaufenText}>Kaufen</Text>
-                        <Text style={styles.summe}>382,98 €</Text>
+                        <Text style={styles.summe}>{this.props.sum} €</Text>
                     </TouchableOpacity>
                 </View>
             );

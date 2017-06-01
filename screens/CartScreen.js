@@ -20,54 +20,53 @@ export default class CartScreen extends React.Component {
     },
   };
 
+  state = {
+      items: []
+  }
+
   constructor(props) {
       super(props);
       console.log("Created CartScreen");
+
       this.state = {
-          items : []
-      }
+          items : [],
+          summe: 0
+      };
   }
 
-    _loadData = async () => {
-        try {
-            console.log("CartScreen: Getting Storage");
-            const value = await AsyncStorage.getItem("items");
-            if (value != null) {
-                let parsed = JSON.parse(value);
-                console.log("CartScreen: Value from AsyncStorage = " + value);
-
-                console.log("state.items.length = " + this.state.items.length);
-                console.log("parsed.length = " + parsed.length);
-
-                // Nur setState verwenden, wenn sich die Anzahl der Items geändert hat
-                // (sonst gibt es eine Endlos-Schleife von Update-Zyklen
-                if (this.state.items.length != parsed.length) {
-                    console.log("CartScreen::loadData - Längen unterscheiden sich!");
-                    this.setState({items: JSON.parse(value)});
-                }
-            }
-        } catch (error) {
-            console.log("Error: " + error);
-        }
+    onItemChange() {
+        console.log("CartScreen: ON ITEM CHANGE");
+        let storeState = this.props.store.getState();
+        this.setState({summe: storeState.sum, items: storeState.items});
     }
 
     componentWillMount() {
-        console.log("CartScreen: ComponentWillMount");
-        this._loadData();
+        console.log("CartScreen - ComponentWillMount:");
+        this.props.store.subscribeForItemChange("CartScreen", () => this.onItemChange())
+    }
+
+    componentDidMount() {
+        console.log("CartScreen: ComponentDidMount");
+        this.props.store.subscribeForItemChange("CartScreen", () => this.onItemChange());
     }
 
     componentWillUpdate() {
         console.log("CartScreen: ComponentWillUpdate");
-        this._loadData();
+        if (!this.props.store.isSubscribed("CartScreen")) {
+            console.log("CartScreen - Registering Subscriber");
+            this.props.store.subscribeForItemChange("CartScreen", () => this.onItemChange());
+        } else {
+            console.log("Cart Screen is already subscribed");
+        }
     }
 
     render() {
-        console.log("CartScreen::Render: Rows:");
-        console.log(this.state.items);
+        console.log("HELLO I AM RENDERING CARTSCREEN, MY STATE IS FOLLOWING");
+        console.log(this.state);
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>
-                <ShoppingCartList rows={this.state.items} />
+                <ShoppingCartList items={this.state.items} sum={this.state.summe} store={this.props.store} />
             </View>
         );
     }
