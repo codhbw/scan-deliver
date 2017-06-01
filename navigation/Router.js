@@ -24,7 +24,7 @@ function makeStore () {
     item.key = state.items.length;
     let items = state.items;
     items.push(item);
-    let sum = parseFloat(parseFloat(state.sum) + parseFloat(item.preis));
+    let sum = parseFloat(parseFloat(state.sum) + parseFloat(item.preis)).toFixed(2);
     Object.assign(state, {sum: sum}, {items: items});
     sendItemChangeUpdates();
   };
@@ -50,7 +50,7 @@ function makeStore () {
       console.log("deleteIndex:");
       console.log(deleteIndex);
 
-      let sum = parseFloat(parseFloat(state.sum) - parseFloat(itemAtIndex.preis));
+      let sum = parseFloat(parseFloat(state.sum) - parseFloat(itemAtIndex.preis)).toFixed(2);
       if (sum < 0) {
         sum = 0;
       }
