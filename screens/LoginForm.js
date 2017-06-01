@@ -119,9 +119,9 @@ const styles = StyleSheet.create({
     }
     ,
     loginText:
-        {
-            textAlign: 'center',
-            color: '#FFF',
-            fontWeight: '200'
-        }
+    {
+        textAlign: 'center',
+        color: '#FFF',
+        fontWeight: '200'
+    }
 });

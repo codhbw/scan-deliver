@@ -2,7 +2,7 @@
  * Created by Surface Book on 30.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, Image, StatusBar, AsyncStorage, Modal, TouchableHighlight, TextInput, Button, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, StatusBar, TouchableOpacity, Modal, KeyboardAvoidingView, TextInput, Button, ScrollView } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class Scan extends React.Component {
@@ -127,28 +127,33 @@ export default class Scan extends React.Component {
                     transparent={false}
                     visible={this.state.modalVisible}
                     onRequestClose={() => this.setModalVisible(false)}>
-                    <View style={{marginTop: 22}}>
-                        <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={styles.paragraph}>
-                                Was für ein Betrag soll gespendet werden?
-                            </Text>
-                            <View style={{flexDirection: 'row', height: 50, justifyContent: 'center'}}>
-                                <TextInput
-                                    style={styles.donationInput}
-                                    value={this.state.donationValue}
-                                    autoFocus={true}
-                                    keyboardType='numeric'
-                                    onChangeText={(value) => {this.setState({donationValue: value})}}/>
-                                <Text style={{fontSize: 28}}>€</Text>
-                            </View>
-                            <TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
-                                <View>
-                                    <Button title="OK" style={{marginBottom: 30}} onPress={() => this.donationOK()} />
-                                    <Button title="Abbrechen" onPress={() => this.donationCancel()} />
-                                </View>
-                            </TouchableHighlight>
+                    <KeyboardAvoidingView behavior='padding' style={styles.modalerContainer}>
+                        <Text style={styles.paragraph}>
+                            Was für ein Betrag soll gespendet werden?
+                        </Text>
+                        <View style={{flexDirection: 'row', height: 50, justifyContent: 'center'}}>
+                            <TextInput
+                                style={styles.donationInput}
+                                value={this.state.donationValue}
+                                autoFocus={true}
+                                keyboardType='numeric'
+                                onChangeText={(value) => {this.setState({donationValue: value})}}/>
+                            <Text style={{fontSize: 40}}>€</Text>
                         </View>
-                    </View>
+                        <View style={styles.buttons}>
+                            <TouchableOpacity
+                                onPress={() => this.donationOK()}
+                                style={styles.donationButton}>
+                                <Text style={styles.donationText}>OK</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => this.donationCancel()}
+                                style={styles.donationButton}>
+                                <Text style={styles.donationText}>Abbrechen</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </KeyboardAvoidingView>
                 </Modal>
 
                 <Text style={styles.paragraph}>
@@ -193,7 +198,7 @@ const styles = StyleSheet.create({
         height: 300
     },
     donationInput: {
-        fontSize: 24,
+        fontSize: 40,
         textAlign: 'center',
         height: 40,
         width: 100
@@ -210,5 +215,27 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#34495e',
+    },
+    donationButton: {
+        backgroundColor: '#2980b9',
+        paddingVertical: 15,
+        marginTop: 10
+    },
+    donationText:
+    {
+        textAlign: 'center',
+        color: '#FFF',
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    modalerContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        margin: 30
+    },
+    buttons: {
+        margin: 10,
+        justifyContent:'flex-end',
     }
 });
