@@ -23,7 +23,7 @@ export default class Scan extends React.Component {
             aktivesItem : {},
             summe : 0,
             limit: 500,
-            summeColor: '#00cc00',
+            summeColor: '#2ecc71',
         };
     }
 
@@ -32,9 +32,9 @@ export default class Scan extends React.Component {
        const storeState = this.props.store.getState();
        console.log(storeState);
 
-       let color = '#00cc00';
+       let color = '#2ecc71';
        if (storeState.sum > this.state.limit) {
-           color = '#cc0000';
+           color = '#e74c3c';
        }
 
        this.setState({summe: storeState.sum, canScan: true, summeColor: color});
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
         fontSize: 36,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#34495e',
+        color: '#2ecc71',
     },
     donationButton: {
         backgroundColor: '#2980b9',

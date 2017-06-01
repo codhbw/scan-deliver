@@ -62,7 +62,7 @@ export default class ShoppingCartList extends Component {
     editItem(index) {
         return [{
             text: 'Bearbeiten',
-            backgroundColor: '#00cc00',
+            backgroundColor: '#2ecc71',
             onPress: () => {
                 console.log("Editiere Item");
             }
@@ -122,9 +122,9 @@ export default class ShoppingCartList extends Component {
     render() {
         console.log("ShoppingCartList State");
         console.log(this.props);
-        let bgColor = '#00cc00';
+        let bgColor = '#2ecc71';
         if (this.props.sum > 500) {
-            bgColor = '#cc0000';
+            bgColor = '#e74c3c';
         }
         if (this.props.items !== null && this.props.items.length > 0)
         {
