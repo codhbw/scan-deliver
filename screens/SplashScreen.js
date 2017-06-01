@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
     },
     title: {
-        margin: 70,
+        marginTop: 70,
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',

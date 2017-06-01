@@ -27,14 +27,14 @@ export default class ShoppingCartList extends Component {
         return [
         {
             text: 'Bearbeiten',
-            backgroundColor: '#00cc00',
+            backgroundColor: '#3498db',
             onPress: () => {
                 console.log("Editiere Item");
             }
         },
             {
                 text: 'Löschen',
-                backgroundColor: '#cc0000',
+                backgroundColor: '#e74c3c',
                 onPress: () => {
                     console.log("LÖSCHE INDEX = " + index);
                     this._removeAtKey(index);

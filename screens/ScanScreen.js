@@ -2,7 +2,7 @@
  * Created by Surface Book on 30.05.2017.
  */
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Alert, Image, StatusBar, AsyncStorage, Modal, TouchableHighlight, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, Alert, Image, StatusBar, AsyncStorage, Modal, TouchableHighlight, TextInput, Button, ScrollView } from 'react-native';
 import { Constants, BarCodeScanner, Permissions } from 'expo';
 
 export default class Scan extends React.Component {
@@ -110,6 +110,7 @@ export default class Scan extends React.Component {
 
     render() {
         return (
+            <ScrollView>
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content"/>
                 <View style={styles.welcomeContainer}>
@@ -165,6 +166,7 @@ export default class Scan extends React.Component {
                 </Text>
 
             </View>
+            </ScrollView>
         );
     }
 }
@@ -175,10 +177,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: Constants.statusBarHeight,
+        margin: 10
     },
     paragraph: {
         margin: 24,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#34495e',
