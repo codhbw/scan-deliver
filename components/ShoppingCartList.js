@@ -122,6 +122,10 @@ export default class ShoppingCartList extends Component {
     render() {
         console.log("ShoppingCartList State");
         console.log(this.props);
+        let bgColor = '#00cc00';
+        if (this.props.sum > 500) {
+            bgColor = '#cc0000';
+        }
         if (this.props.items !== null && this.props.items.length > 0)
         {
             return (
@@ -130,7 +134,7 @@ export default class ShoppingCartList extends Component {
                         data={this.props.items}
                         renderItem={this.renderItem}
                         keyExtractor={extractKey} />
-                    <TouchableOpacity style={styles.kaufenButton}
+                    <TouchableOpacity style={[styles.kaufenButton, {backgroundColor: bgColor}]}
                                       onPress={this._kaufen}>
                         <Text style={styles.kaufenText}>Kaufen</Text>
                         <Text style={styles.summe}>{this.props.sum} €</Text>
