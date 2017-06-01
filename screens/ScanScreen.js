@@ -18,44 +18,31 @@ export default class Scan extends React.Component {
             hasCameraPermission: null,
             // QR Code wird nur gescannt, wenn canScan = true
             canScan: true,
-            items : [],
-            hasNewData : false,
             modalVisible : false,
             donationValue : "10",
             aktivesItem : {},
             summe : 0,
             limit: 500,
-            summeColor: '#00cc00'
+            summeColor: '#00cc00',
         };
     }
 
-    _loadData = async () => {
-        try {
-            console.log("ScanScreen: Read from AsyncStorage");
-            const value = await AsyncStorage.getItem("items");
-            if (value != null) {
-                console.log("Value from AsyncStorage = " + value);
-                this.setState({items: JSON.parse(value)});
-            };
-        } catch (error) {
-            console.log("Error: " + error);
-        }
-    }
+   onItemChange() {
+       console.log("ScanScreen: onItemChange");
+       const storeState = this.props.store.getState();
+       console.log(storeState);
 
-    componentDidMount() {
-        this._loadData();
-    }
+       let color = '#00cc00';
+       if (storeState.sum > this.state.limit) {
+           color = '#cc0000';
+       }
+
+       this.setState({summe: storeState.sum, canScan: true, summeColor: color});
+   }
 
     componentWillMount() {
-        console.log("ScanScreen: ComponentWillMount");
+        this.props.store.subscribeForItemChange("ScanScreen", () => this.onItemChange())
         this._requestCameraPermission();
-    }
-
-    componentWillUpdate() {
-        if (this.state.hasNewData) {
-            this._loadData();
-            this.setState({hasNewData: false});
-        }
     }
 
     _requestCameraPermission = async () => {
@@ -68,69 +55,36 @@ export default class Scan extends React.Component {
     _handleBarCodeRead = data => {
         if (this.state.canScan) {
             this.setState({canScan: false});
+
+            let parsed = JSON.parse(data.data);
+
+            let alertHeadline = 'PLATZHALTER';
+            if (parsed.type == 'spende') {
+                alertHeadline = 'Spende erkannt';
+            } else if (parsed.type == 'kleidung') {
+                alertHeadline = 'Kleidungsstück erkannt';
+            }
             Alert.alert(
-                'Danke für die Spende!',
+                alertHeadline,
                 "",
                 [
-                    {text: "Ignorieren", onPress: () => this._ignorieren(data)},
-                    {text: "Hinzufügen", onPress: () => this._hinzufuegen(data)}
+                    {text: "Ignorieren", onPress: () => this._ignorieren(parsed)},
+                    {text: "Hinzufügen", onPress: () => this._hinzufuegen(parsed)}
                 ]
             );
         }
     };
 
     _hinzufuegen(data) {
-        console.log("ScanScreen - State.Items = " + this.state.items);
-
-        let parsedObject = JSON.parse(data.data);
         console.log("Data:");
-        console.log(data.data);
+        console.log(data);
 
-        this.setState({aktivesItem: parsedObject});
+        this.setState({aktivesItem: data});
 
-        if (parsedObject.type == 'spende') {
+        if (data.type == 'spende') {
             this.setState({modalVisible: true})
         } else {
-            this._itemMachen();
-        }
-    }
-
-    _itemMachen() {
-        var neu = {
-            ...this.state.aktivesItem,
-            key: this.state.items.length + 1
-        };
-        console.log("Data-Neu:");
-        console.log(neu);
-
-        let newItems = this.state.items;
-        newItems.push(neu);
-
-        this._save(newItems);
-
-        let alteSumme = (this.state.summe == null || this.state.summe == undefined) ? 0 : this.state.summe
-        let summe = parseFloat(parseFloat(alteSumme) + parseFloat(neu.preis));
-
-        if (summe > this.state.limit) {
-            this.setRedColor();
-        } else {
-            this.setGreenColor();
-        }
-
-        this.setState({items: newItems, canScan: true, hasNewData: true, summe: summe});
-    }
-
-    _save = async (items) => {
-        try {
-            console.log("ScanScreen - Save");
-            if (items == null) {
-                console.log("ScanScreen - Items = Null");
-                items = [];
-            }
-            console.log("ScanScreen: Saving object into 'items': " + JSON.stringify(items));
-            await AsyncStorage.setItem("items", JSON.stringify(items));
-        } catch (error) {
-            console.log("ScanScreen Error: " + error);
+            this.props.store.addItem(data);
         }
     }
 
@@ -155,7 +109,7 @@ export default class Scan extends React.Component {
         var aktivesItem = this.state.aktivesItem;
         aktivesItem.preis = this.state.donationValue;
         this.setState({aktivesItem: aktivesItem});
-        this._itemMachen();
+        this.props.store.addItem(aktivesItem)
         this.setState({modalVisible: false});
     }
 

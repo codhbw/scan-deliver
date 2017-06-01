@@ -19,23 +19,7 @@ export default class SettingsScreen extends React.Component {
       this.props.navigator.push(Router.getRoute('adressen'));
   };
 
-  componentWillMount() {
-    this._clearCache();
-  }
-
-  _clearCache = async () => {
-    try {
-      console.log("Clearing cache");
-      await AsyncStorage.removeItem("items");
-      await AsyncStorage.clear();
-    } catch (error) {
-      console.log("Cannot clear cache");
-      console.log(error);
-    }
-  }
-
   render() {
-    this._clearCache();
     return (
         <ScrollView>
           <View style={styles.container}>
