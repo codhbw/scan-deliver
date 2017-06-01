@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, Text, StyleSheet, AsyncStorage, View, TouchableOpacity, Platform } from 'react-native'
+import { FlatList, Text, StyleSheet, AsyncStorage, View, TouchableOpacity, Platform, Alert } from 'react-native'
 import Kleidung from './Kleidung'
 import Spende from './Spende'
 import DefaultItem from "./DefaultItem"
@@ -59,8 +59,18 @@ export default class ShoppingCartList extends Component {
     }
 
     _kaufen = () => {
-        this.props.store.clear();
-        this.props.navigator.push(Router.getRoute('login'));
+        if (this.props.sum > 500) {
+            Alert.alert(
+                "Summe übersteigt Limit",
+                "Der Kauf kann nicht abgeschlossen werden, da die Gesamtsumme das festgelegte Limit übersteigt",
+                [
+                    {text: "Verstanden"}
+                ]
+            );
+        } else {
+            this.props.store.clear();
+            this.props.navigator.push(Router.getRoute('login'));
+        }
     };
 
     render() {
