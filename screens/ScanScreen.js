@@ -61,7 +61,9 @@ export default class Scan extends React.Component {
             let alertHeadline = 'QR-Code gescannt';
 
             var capitalizedType = parsed.type.charAt(0).toUpperCase() + parsed.type.slice(1);
-            let description = "\"" + parsed.name  + "\" (" + capitalizedType + ") wurde erkannt."
+            let description = "\"" + parsed.name  + "\" (" + capitalizedType + ") wurde erkannt.";
+
+
 
             Alert.alert(
                 alertHeadline,
