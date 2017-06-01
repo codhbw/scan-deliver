@@ -58,15 +58,14 @@ export default class Scan extends React.Component {
 
             let parsed = JSON.parse(data.data);
 
-            let alertHeadline = 'PLATZHALTER';
-            if (parsed.type == 'spende') {
-                alertHeadline = 'Spende erkannt';
-            } else if (parsed.type == 'kleidung') {
-                alertHeadline = 'Kleidungsstück erkannt';
-            }
+            let alertHeadline = 'QR-Code gescannt';
+
+            var capitalizedType = parsed.type.charAt(0).toUpperCase() + parsed.type.slice(1);
+            let description = "\"" + parsed.name  + "\" (" + capitalizedType + ") wurde erkannt."
+
             Alert.alert(
                 alertHeadline,
-                "",
+                description,
                 [
                     {text: "Ignorieren", onPress: () => this._ignorieren(parsed)},
                     {text: "Hinzufügen", onPress: () => this._hinzufuegen(parsed)}
