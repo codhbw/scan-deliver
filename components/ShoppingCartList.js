@@ -17,7 +17,8 @@ export default class ShoppingCartList extends Component {
         console.log(this.props.rows.length);
         console.log("Constructor von Shoppingcart called");
         this.state = {
-            items: this.props.rows
+            items: this.props.rows,
+            summe: 0
         };
         console.log("PROPS____");
         console.log(props);
@@ -29,6 +30,11 @@ export default class ShoppingCartList extends Component {
         console.log("NEXT PROPS COMING");
         console.log(nextProps);
         this.setState({items: nextProps.rows});
+        nextProps.rows.forEach((row) => {
+            let alteSumme = (this.state.summe == null || this.state.summe == undefined) ? 0 : this.state.summe
+            let neueSumme = parseFloat(parseFloat(alteSumme) + parseFloat(row.preis));
+            this.setState({summe: neueSumme});
+        });
     }
 
     removeItem(index) {
@@ -46,6 +52,7 @@ export default class ShoppingCartList extends Component {
         console.log("REMOVE AT KEY:");
         console.log(key);
         var deleteIndex = null;
+        var itemToDelete = null;
         let items = this.state.items;
         console.log("ITEMS:::");
         console.log(items);
@@ -54,6 +61,7 @@ export default class ShoppingCartList extends Component {
             console.log("Ist " + key + " = " + itemAtIndex.key + "?");
             if (itemAtIndex.key == key) {
                 deleteIndex = i;
+                itemToDelete = itemAtIndex;
             }
         }
 
@@ -66,6 +74,9 @@ export default class ShoppingCartList extends Component {
 
         //this._save(items);
         this.setState({items: items});
+        let alteSumme = (this.state.summe == null || this.state.summe == undefined) ? 0 : this.state.summe
+        let neueSumme = parseFloat(parseFloat(alteSumme) - parseFloat(itemToDelete.preis));
+        this.setState({summe: neueSumme});
     }
 
     _save = async (items) => {
@@ -120,7 +131,7 @@ export default class ShoppingCartList extends Component {
                     <TouchableOpacity style={styles.kaufenButton}
                                       onPress={this._kaufen}>
                         <Text style={styles.kaufenText}>Kaufen</Text>
-                        <Text style={styles.summe}>382,98 €</Text>
+                        <Text style={styles.summe}>{this.state.summe} €</Text>
                     </TouchableOpacity>
                 </View>
             );
