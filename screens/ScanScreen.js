@@ -134,7 +134,7 @@ export default class Scan extends React.Component {
                     visible={this.state.modalVisible}
                     onRequestClose={() => this.setModalVisible(false)}>
                     <View style={{marginTop: 22}}>
-                        <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+                        <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                             <Text style={styles.paragraph}>
                                 Was für ein Betrag soll gespendet werden?
                             </Text>
@@ -142,6 +142,8 @@ export default class Scan extends React.Component {
                                 <TextInput
                                     style={styles.donationInput}
                                     value={this.state.donationValue}
+                                    autoFocus={true}
+                                    keyboardType='numeric'
                                     onChangeText={(value) => {this.setState({donationValue: value})}}/>
                                 <Text style={{fontSize: 28}}>€</Text>
                             </View>
@@ -198,15 +200,16 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center',
         height: 40,
-        width: 60
+        width: 100
     },
     welcomeImage: {
         width: 70,
         height: 70,
         resizeMode: 'contain',
+        marginTop: 20,
     },
     sum: {
-        margin: 40,
+        margin: 20,
         fontSize: 36,
         fontWeight: 'bold',
         textAlign: 'center',

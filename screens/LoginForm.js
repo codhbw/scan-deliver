@@ -21,9 +21,9 @@ export default class LoginForm extends Component {
     {
         authFunction();
     }
-    _login = () => {
-        Alert.alert('Einkauf abgeschlossen!', 'Weitere Details haben wir an barack.obama@gmail.com geschickt.')
-        this.props.navigator.push(Router.getRoute('cart'));
+    _zahlungAbwickeln = () => {
+        Alert.alert('Einkauf abgeschlossen!', 'Weitere Details haben wir an Ihre E-Mail-Adresse geschickt.')
+        this.props.navigator.pop();
     };
     _registrieren = () => {
         Alert.alert(
@@ -42,7 +42,7 @@ export default class LoginForm extends Component {
                 try {
                     let result = await NativeModules.ExponentFingerprint.authenticateAsync();
                     if (result.success) {
-                        this._login()
+                        this._zahlungAbwickeln()
                     } else {
                         console.log("TouchID fehlgeschlagen");
                     }
@@ -53,10 +53,10 @@ export default class LoginForm extends Component {
         } else if (Platform.OS === 'ios') {
             authFunction = async () => {
                 let result = await NativeModules.ExponentFingerprint.authenticateAsync(
-                    'Melde dich per TouchID bei Scan&Deliver an'
+                    'Melde dich per TouchID bei Scan & Deliver an'
                 );
                 if (result.success) {
-                    this._login();
+                    this._zahlungAbwickeln();
                 } else {
                     console.log("TouchID fehlgeschlagen");
                 }
@@ -83,7 +83,7 @@ export default class LoginForm extends Component {
                 />
 
                 <TouchableOpacity
-                    onPress={this._login}
+                    onPress={this._zahlungAbwickeln}
                     style={styles.loginButton}>
                     <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity>

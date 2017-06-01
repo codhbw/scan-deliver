@@ -5,6 +5,7 @@ import {
     StackNavigation,
     TabNavigation,
     TabNavigationItem,
+    NavigationProvider
 } from '@expo/ex-navigation';
 import {FontAwesome} from '@expo/vector-icons';
 

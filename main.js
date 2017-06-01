@@ -20,7 +20,7 @@ class AppContainer extends React.Component {
   async _loadAssetsAsync() {
     try {
       await cacheAssetsAsync({
-        images: [require('./assets/images/expo-wordmark.png'), require('./assets/images/gruppenbild.png'), require('./assets/images/sd-logo.png'), require('./assets/images/sd-logo-schrift.png'), require('./assets/images/gruppenbild-small.jpg')],
+        images: [require('./assets/images/sd-logo.png'), require('./assets/images/sd-logo-schrift.png'), require('./assets/images/gruppenbild-small.jpg')],
         fonts: [
           FontAwesome.font,
           { 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf') },

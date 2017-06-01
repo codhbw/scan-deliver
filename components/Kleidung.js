@@ -31,7 +31,7 @@ export default class Kleidung extends React.Component {
                     <FadeIn placeholderStyle={{backgroundColor: Platform.OS === 'android' ? 'transparent' : '#eee'}}>
                         <Image
                             resizeMode="contain"
-                            source={this.props.bildUrl}
+                            source={{uri: this.props.bildUrl}}
                             style={styles.logo}
                         />
                     </FadeIn>
@@ -43,7 +43,7 @@ export default class Kleidung extends React.Component {
                     </Text>
 
                     <Text style={styles.price}>
-                        {this.props.preis}
+                        {this.props.preis} €
                     </Text>
                 </View>
 
