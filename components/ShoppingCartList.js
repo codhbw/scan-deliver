@@ -103,10 +103,21 @@ export default class ShoppingCartList extends Component {
                 ]
             );
         } else {
-            this.props.store.clear();
-            this.props.navigator.push(Router.getRoute('login'));
+            Alert.alert(
+                "Kauf durchführen?",
+                "Jetzt zahlungspflichtig bestellen?",
+                [
+                    {text: "Nein", onPress: () => {}},
+                    {text: "Ja", onPress: () => this._wirklichKaufen()}
+                ]
+            );
         }
     };
+
+    _wirklichKaufen() {
+        this.props.store.clear();
+        this.props.navigator.push(Router.getRoute('login'));
+    }
 
     render() {
         console.log("ShoppingCartList State");
