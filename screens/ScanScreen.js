@@ -140,7 +140,7 @@ export default class Scan extends React.Component {
                             </View>
                             <TouchableHighlight onPress={() => { this.setModalVisible(!this.state.modalVisible) }}>
                                 <View>
-                                    <Button title="OK" onPress={() => this.donationOK()} />
+                                    <Button title="OK" style={{marginBottom: 30}} onPress={() => this.donationOK()} />
                                     <Button title="Abbrechen" onPress={() => this.donationCancel()} />
                                 </View>
                             </TouchableHighlight>
