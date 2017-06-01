@@ -73,7 +73,11 @@ export default class ShoppingCartList extends Component {
             )
         }
         else {
-            <DefaultItem name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
+            return (
+                <Swipeout right={this.removeItem(item.key)}>
+                    <DefaultItem name={item.name} preis={item.preis} bildUrl={item.bildUrl}/>
+                </Swipeout>
+            )
         }
     }
 
