@@ -24,18 +24,37 @@ export default class ShoppingCartList extends Component {
     }
 
     removeItem(index) {
-        return [{
-            text: 'Löschen',
-            backgroundColor: '#cc0000',
+        return [
+        {
+            text: 'Bearbeiten',
+            backgroundColor: '#00cc00',
             onPress: () => {
-                console.log("LÖSCHE INDEX = " + index);
-                this._removeAtKey(index);
+                console.log("Editiere Item");
             }
-        }]
+        },
+            {
+                text: 'Löschen',
+                backgroundColor: '#cc0000',
+                onPress: () => {
+                    console.log("LÖSCHE INDEX = " + index);
+                    this._removeAtKey(index);
+                }
+            }
+        ]
     }
 
     _removeAtKey(key) {
         this.props.store.removeItemByKey(key);
+    }
+
+    editItem(index) {
+        return [{
+            text: 'Bearbeiten',
+            backgroundColor: '#00cc00',
+            onPress: () => {
+                console.log("Editiere Item");
+            }
+        }]
     }
 
     renderItem = ({item}) => {
