@@ -96,14 +96,6 @@ export default class Scan extends React.Component {
         this.setState({modalVisible: status});
     }
 
-    setGreenColor() {
-        this.setState({summeColor: '#00cc00'});
-    }
-
-    setRedColor() {
-        this.setState({summeColor: '#cc0000'});
-    }
-
     donationOK() {
         console.log("Zu Spenden: " + this.state.donationValue);
         var aktivesItem = this.state.aktivesItem;
